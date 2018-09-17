@@ -1,0 +1,25 @@
+HieSchella: Hierarchical Scheduling for Large Scale Architectures
+
+HieSchella (US IPA: /'haɪ.skɛ.lɑ/) is a project that aims to provide
+performance portability by combining (i) knowledge about the parallel
+application and (ii) a machine topology model in (iii) scheduling and load
+balancing algorithms.
+
+Please refer to COPYING for the software license and to DEPENDENCIES for
+additional software required.
+Steps to install libhieschella:
+1) Install hwloc (version 1.7 or newer)
+2) Install lmbench3
+3) Make a symbolic link to the lmbench directory as "lmbench3" in this directory
+4) Check that the paths in src/Makefile are all correct
+5) Run install.sh
+6) Add hwloc and libhieschella paths to your LD_LIBRARY_PATH
+7) Run bin/memory_profile to benchmark the memory hierarchy and store it as an xml file
+You can check if step 7 went correctly by running bin/read_topology
+To add the network topology to the machine topology xml file, use bin/network_extension with benchmarked information gathered using our ping-pong benchmark written with coNCePTuaL.
+
+Steps to install the load balancers:
+1) Install libhieschella
+2) Install Charm++. You should use the options smp or multicore-linux64, and add --libdir=YOUR_HWLOC_PATH/lib --incdir=YOUR_HWLOC_PATH/include --libdir=YOUR_HIESCHELLA/lib --incdir=YOUR_HIESCHELLA_PATH/include. The latest Charm++ version tested is v6.4.0
+3) Run install_lbs.sh in extra/ (check all paths)
+To use any of our load balancers with an application, don't forget to link it with -lhwloc and -lhieschella

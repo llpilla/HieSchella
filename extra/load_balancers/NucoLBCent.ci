@@ -1,0 +1,10 @@
+module NucoLBCent {
+
+extern module TopologyAwareLB;
+extern module NucoLB;
+initnode void lbinit(void);
+group [migratable] NucoLBCent : NucoLB {
+  entry void NucoLBCent(const CkLBOptions &);  
+};
+
+};

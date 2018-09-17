@@ -1,0 +1,10 @@
+module StatsLBNode {
+
+extern module TopologyAwareLB;
+extern module StatsLB;
+initnode void lbinit(void);
+group [migratable] StatsLBNode : StatsLB {
+  entry void StatsLBNode(const CkLBOptions &);  
+};
+
+};

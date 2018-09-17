@@ -1,0 +1,34 @@
+#ping-pong latency test written in coNCePTuaL
+
+Require language version "1.4".
+
+# Parse the command line.
+reps is "Number of repetitions of each message size" and comes from
+ "--reps" or "-r" with default 1000.
+maxbytes is "Maximum number of bytes to transmit" and comes from
+ "--maxbytes" or "-m" with default 1M.
+warm is "Number of repetitions for warmup" and comes from
+ "--warmup" or "-w" with default 50
+
+# Ensure that we have a peer with whom to communicate.
+Assert that "the ping-pong test requires at least two tasks" with num_tasks>=2.
+
+# Perform the benchmark.
+For each sender in {0, ..., 1000} {
+  for each receiver in {neighbor for each neighbor in {0, ..., 1000} where sender <> neighbor} {
+    for each msgsize in {512, 1024, 2048, ..., maxbytes} {
+      task sender resets its counters then
+      for reps repetitions plus warm warmup repetitions {
+        task sender sends a msgsize byte message to task receiver then
+        task receiver sends a 0 byte message to task sender
+      } then
+        if receiver < num_tasks then
+        task sender logs
+                    receiver as "Neighbor" and
+                    msgsize as "Bytes" and
+                    elapsed_usecs as "Total time (usecs)" and
+                    elapsed_usecs/reps as "Mean time (usecs)"
+    }
+  }
+}
+

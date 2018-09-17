@@ -1,0 +1,6 @@
+How to use these benchmarks:
+1) build charm
+2) create a test folder
+3) verify if the parameters in the Makefile are correct
+4) make the benchmarks
+5) run the benchmarks on your test folder

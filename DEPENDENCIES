@@ -1,0 +1,7 @@
+Additional software is required to fully use the available load balancers.
+This includes:
+
+- Portable Hardware Locality (hwloc): http://www.open-mpi.org/projects/hwloc/ (for reading and storing the machine topology)
+- Charm++: http://charm.cs.uiuc.edu/software (for load balancers)
+- lmbench: http://sourceforge.net/projects/lmbench/ (for profiling the memory topology)
+- coNCePTuaL: http://www.ccs3.lanl.gov/~pakin/software/conceptual/  (for profiling the network topology)

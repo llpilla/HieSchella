@@ -1,0 +1,9 @@
+module TopologyAwareLB {
+
+extern module CentralLB;
+initnode void lbinit(void);
+group [migratable] TopologyAwareLB : CentralLB {
+  entry void TopologyAwareLB(const CkLBOptions &);  
+};
+
+};

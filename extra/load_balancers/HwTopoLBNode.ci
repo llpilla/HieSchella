@@ -1,0 +1,10 @@
+module HwTopoLBNode {
+
+extern module TopologyAwareLB;
+extern module HwTopoLB;
+initnode void lbinit(void);
+group [migratable] HwTopoLBNode : HwTopoLB {
+  entry void HwTopoLBNode(const CkLBOptions &);  
+};
+
+};

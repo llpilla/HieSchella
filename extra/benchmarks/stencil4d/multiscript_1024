@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# set up environment - See the section on Script Environment
+# dumpenv.sh > myenv.sh
+. ./myenv.sh
+
+NUMPROC1024=1024
+
+# Submit using:
+
+# IMPORTANT - do not use plain "mpirun"
+cobalt-mpirun -nofree -np $NUMPROC1024 -mode vn -env "BG_MAPPING=TXYZ" -cwd `pwd` /home/harshita/work/charm/examples/charm++/load_balancing/stencil4d/stencil4d 128 128 128 256 16 16 16 16  
+cobalt-mpirun -nofree -np $NUMPROC1024 -mode vn -env "BG_MAPPING=TXYZ" -cwd `pwd` /home/harshita/work/charm/examples/charm++/load_balancing/stencil4d/stencil4d 128 128 128 256 16 16 16 16  +balancer GreedyLB +LBDebug 1
+cobalt-mpirun -nofree -np $NUMPROC1024 -mode vn -env "BG_MAPPING=TXYZ" -cwd `pwd` /home/harshita/work/charm/examples/charm++/load_balancing/stencil4d/stencil4d 128 128 128 256 16 16 16 16  +balancer RefineLB +LBDebug 1
+cobalt-mpirun -nofree -np $NUMPROC1024 -mode vn -env "BG_MAPPING=TXYZ" -cwd `pwd` /home/harshita/work/charm/examples/charm++/load_balancing/stencil4d/stencil4d 128 128 128 256 16 16 16 16  +balancer RefineCommLB 
+cobalt-mpirun -nofree -np $NUMPROC1024 -mode vn -env "BG_MAPPING=TXYZ" -cwd `pwd` /home/harshita/work/charm/examples/charm++/load_balancing/stencil4d/stencil4d 128 128 128 256 16 16 16 16  +balancer ScotchLB +balancer CommAwareLB +LBDebug 1
+cobalt-mpirun -nofree -np $NUMPROC1024 -mode vn -env "BG_MAPPING=TXYZ" -cwd `pwd` /home/harshita/work/charm/examples/charm++/load_balancing/stencil4d/stencil4d 128 128 128 256 16 16 16 16  +balancer ScotchLB +LBDebug 1
+cobalt-mpirun -nofree -np $NUMPROC1024 -mode vn -env "BG_MAPPING=TXYZ" -cwd `pwd` /home/harshita/work/charm/examples/charm++/load_balancing/stencil4d/stencil4d 128 128 128 256 16 16 16 16  +balancer ScotchLB +balancer ScotchRefineLB +LBDebug 1
+
+cobalt-mpirun -free wait
+

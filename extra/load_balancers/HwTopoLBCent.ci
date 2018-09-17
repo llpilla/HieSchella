@@ -1,0 +1,10 @@
+module HwTopoLBCent {
+
+extern module TopologyAwareLB;
+extern module HwTopoLB;
+initnode void lbinit(void);
+group [migratable] HwTopoLBCent : HwTopoLB {
+  entry void HwTopoLBCent(const CkLBOptions &);  
+};
+
+};

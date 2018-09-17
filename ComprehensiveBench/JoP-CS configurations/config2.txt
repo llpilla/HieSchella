@@ -1,0 +1,10 @@
+n = 2000
+r = 50
+gcomm = Ring
+lbfreq = 5
+int_op = false
+tasksize = 100000
+load = 10
+msgsize = 100
+msgnum = 1
+initmap = (t*p)/n

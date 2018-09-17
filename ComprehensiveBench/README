@@ -1,0 +1,5 @@
+To compile, set a configuration file (examples on WSCAD-configurations) and
+call ./build.sh [config file].
+
+Please check the Makefile to make sure you have the right compilation flags
+and path to Charm++

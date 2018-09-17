@@ -1,0 +1,9 @@
+module NucoLB {
+
+extern module TopologyAwareLB;
+initnode void lbinit(void);
+group [migratable] NucoLB : TopologyAwareLB {
+  entry void NucoLB(const CkLBOptions &);  
+};
+
+};

@@ -1,0 +1,50 @@
+mainmodule stencil4d {
+
+  readonly CProxy_Main mainProxy;
+  readonly int arrayDimW;
+  readonly int arrayDimX;
+  readonly int arrayDimY;
+  readonly int arrayDimZ;
+  readonly int blockDimW;
+  readonly int blockDimX;
+  readonly int blockDimY;
+  readonly int blockDimZ;
+
+  readonly int num_chare_w;
+  readonly int num_chare_x;
+  readonly int num_chare_y;
+  readonly int num_chare_z;
+
+  mainchare Main {
+    entry Main(CkArgMsg *m);
+    entry void terminate();
+    entry void nextStep(CkReductionMsg *msg);
+    entry void beginIteration();
+  };
+
+  array [4D] Stencil {
+    entry Stencil(void);
+    entry void begin_iteration(void);
+    entry void receiveGhosts(int iter, int dir, int length, int width, int height,
+                             double ghosts[length*height*width]);
+    entry void pauseForLB(void);
+
+    entry void doStep() {
+      atomic "begin_iteration" {
+	begin_iteration();
+      }
+      for(imsg = 0; imsg < 8; imsg++) {
+	// "iterations" keeps track of messages across steps
+	when receiveGhosts[iterations] (int iter, int dir, int length, int width, 
+                                     int height, double ghosts[length*height*width])
+	  atomic "process_ghosts" {
+            processGhosts(dir, length, width, height, ghosts);
+          }
+      }
+      atomic "do_work" {
+	check_and_compute();
+      }
+    };
+  };
+
+};
